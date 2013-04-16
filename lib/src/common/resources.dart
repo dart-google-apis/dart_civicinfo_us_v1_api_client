@@ -10,13 +10,13 @@ class ElectionsResource extends Resource {
    *
    * [optParams] - Additional query parameters
    */
-  Future<ElectionsQueryResponse> electionQuery({Map optParams}) {
-    var completer = new Completer();
+  async.Future<ElectionsQueryResponse> electionQuery({core.Map optParams}) {
+    var completer = new async.Completer();
     var url = "elections";
-    var urlParams = new Map();
-    var queryParams = new Map();
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
 
-    var paramErrors = new List();
+    var paramErrors = new core.List();
     if (optParams != null) {
       optParams.forEach((key, value) {
         if (value != null && queryParams[key] == null) {
@@ -50,13 +50,13 @@ class ElectionsResource extends Resource {
    *
    * [optParams] - Additional query parameters
    */
-  Future<VoterInfoResponse> voterInfoQuery(VoterInfoRequest request, String electionId, {bool officialOnly, Map optParams}) {
-    var completer = new Completer();
+  async.Future<VoterInfoResponse> voterInfoQuery(VoterInfoRequest request, core.String electionId, {core.bool officialOnly, core.Map optParams}) {
+    var completer = new async.Completer();
     var url = "voterinfo/{electionId}/lookup";
-    var urlParams = new Map();
-    var queryParams = new Map();
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
 
-    var paramErrors = new List();
+    var paramErrors = new core.List();
     if (electionId == null) paramErrors.add("electionId is required");
     if (electionId != null) urlParams["electionId"] = electionId;
     if (officialOnly != null) queryParams["officialOnly"] = officialOnly;
