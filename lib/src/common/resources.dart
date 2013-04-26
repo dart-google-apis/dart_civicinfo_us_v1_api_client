@@ -1,8 +1,8 @@
 part of civicinfo_us_v1_api_client;
 
-class ElectionsResource extends Resource {
+class ElectionsResource_ extends Resource {
 
-  ElectionsResource(Client client) : super(client) {
+  ElectionsResource_(Client client) : super(client) {
   }
 
   /**
@@ -26,7 +26,7 @@ class ElectionsResource extends Resource {
     }
 
     if (!paramErrors.isEmpty) {
-      completer.completeError(new ArgumentError(paramErrors.join(" / ")));
+      completer.completeError(new core.ArgumentError(paramErrors.join(" / ")));
       return completer.future;
     }
 
@@ -69,7 +69,7 @@ class ElectionsResource extends Resource {
     }
 
     if (!paramErrors.isEmpty) {
-      completer.completeError(new ArgumentError(paramErrors.join(" / ")));
+      completer.completeError(new core.ArgumentError(paramErrors.join(" / ")));
       return completer.future;
     }
 

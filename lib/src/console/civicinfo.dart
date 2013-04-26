@@ -4,8 +4,8 @@ part of civicinfo_us_v1_api_console;
 /** An API for accessing civic information. */
 class Civicinfo extends ConsoleClient {
 
-  ElectionsResource _elections;
-  ElectionsResource get elections => _elections;
+  ElectionsResource_ _elections;
+  ElectionsResource_ get elections => _elections;
 
   /**
    * Data format for the response.
@@ -59,6 +59,6 @@ class Civicinfo extends ConsoleClient {
   Civicinfo([oauth2.OAuth2Console auth]) : super(auth) {
     basePath = "/civicinfo/us_v1/";
     rootUrl = "https://www.googleapis.com:443/";
-    _elections = new ElectionsResource(this);
+    _elections = new ElectionsResource_(this);
   }
 }
