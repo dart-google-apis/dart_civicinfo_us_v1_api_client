@@ -6,6 +6,8 @@ class Civicinfo extends BrowserClient {
 
   ElectionsResource_ _elections;
   ElectionsResource_ get elections => _elections;
+  RepresentativesResource_ _representatives;
+  RepresentativesResource_ get representatives => _representatives;
 
   /**
    * Data format for the response.
@@ -58,7 +60,8 @@ class Civicinfo extends BrowserClient {
 
   Civicinfo([oauth.OAuth2 auth]) : super(auth) {
     basePath = "/civicinfo/us_v1/";
-    rootUrl = "https://www.googleapis.com:443/";
+    rootUrl = "https://www.googleapis.com/";
     _elections = new ElectionsResource_(this);
+    _representatives = new RepresentativesResource_(this);
   }
 }

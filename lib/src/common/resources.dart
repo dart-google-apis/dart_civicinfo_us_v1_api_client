@@ -50,7 +50,7 @@ class ElectionsResource_ extends Resource {
    *
    * [optParams] - Additional query parameters
    */
-  async.Future<VoterInfoResponse> voterInfoQuery(VoterInfoRequest request, core.String electionId, {core.bool officialOnly, core.Map optParams}) {
+  async.Future<VoterInfoResponse> voterInfoQuery(VoterInfoRequest request, core.int electionId, {core.bool officialOnly, core.Map optParams}) {
     var completer = new async.Completer();
     var url = "voterinfo/{electionId}/lookup";
     var urlParams = new core.Map();
@@ -77,6 +77,51 @@ class ElectionsResource_ extends Resource {
     response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
     response
       .then((data) => completer.complete(new VoterInfoResponse.fromJson(data)))
+      .catchError((e) { completer.completeError(e); return true; });
+    return completer.future;
+  }
+}
+
+class RepresentativesResource_ extends Resource {
+
+  RepresentativesResource_(Client client) : super(client) {
+  }
+
+  /**
+   * Looks up political geography and (optionally) representative information based on an address.
+   *
+   * [request] - RepresentativeInfoRequest to send in this request
+   *
+   * [includeOffices] - Whether to return information about offices and officials. If false, only the top-level district information will be returned.
+   *   Default: true
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<RepresentativeInfoResponse> representativeInfoQuery(RepresentativeInfoRequest request, {core.bool includeOffices, core.Map optParams}) {
+    var completer = new async.Completer();
+    var url = "representatives/lookup";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (includeOffices != null) queryParams["includeOffices"] = includeOffices;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      completer.completeError(new core.ArgumentError(paramErrors.join(" / ")));
+      return completer.future;
+    }
+
+    var response;
+    response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
+    response
+      .then((data) => completer.complete(new RepresentativeInfoResponse.fromJson(data)))
       .catchError((e) { completer.completeError(e); return true; });
     return completer.future;
   }
