@@ -265,7 +265,11 @@ class Candidate {
       name = json["name"];
     }
     if (json.containsKey("orderOnBallot")) {
-      orderOnBallot = json["orderOnBallot"];
+      if(json["orderOnBallot"] is core.String){
+        orderOnBallot = core.int.parse(json["orderOnBallot"]);
+      }else{
+        orderOnBallot = json["orderOnBallot"];
+      }
     }
     if (json.containsKey("party")) {
       party = json["party"];
@@ -410,7 +414,11 @@ class Contest {
   /** Create new Contest from JSON data */
   Contest.fromJson(core.Map json) {
     if (json.containsKey("ballotPlacement")) {
-      ballotPlacement = json["ballotPlacement"];
+      if(json["ballotPlacement"] is core.String){
+        ballotPlacement = core.int.parse(json["ballotPlacement"]);
+      }else{
+        ballotPlacement = json["ballotPlacement"];
+      }
     }
     if (json.containsKey("candidates")) {
       candidates = [];
@@ -431,10 +439,18 @@ class Contest {
       level = json["level"];
     }
     if (json.containsKey("numberElected")) {
-      numberElected = json["numberElected"];
+      if(json["numberElected"] is core.String){
+        numberElected = core.int.parse(json["numberElected"]);
+      }else{
+        numberElected = json["numberElected"];
+      }
     }
     if (json.containsKey("numberVotingFor")) {
-      numberVotingFor = json["numberVotingFor"];
+      if(json["numberVotingFor"] is core.String){
+        numberVotingFor = core.int.parse(json["numberVotingFor"]);
+      }else{
+        numberVotingFor = json["numberVotingFor"];
+      }
     }
     if (json.containsKey("office")) {
       office = json["office"];
@@ -550,7 +566,11 @@ class Election {
       electionDay = json["electionDay"];
     }
     if (json.containsKey("id")) {
-      id = json["id"];
+      if(json["id"] is core.String){
+        id = core.int.parse(json["id"]);
+      }else{
+        id = json["id"];
+      }
     }
     if (json.containsKey("name")) {
       name = json["name"];

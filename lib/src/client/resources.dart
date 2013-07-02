@@ -11,7 +11,6 @@ class ElectionsResource_ extends Resource {
    * [optParams] - Additional query parameters
    */
   async.Future<ElectionsQueryResponse> electionQuery({core.Map optParams}) {
-    var completer = new async.Completer();
     var url = "elections";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
@@ -26,16 +25,13 @@ class ElectionsResource_ extends Resource {
     }
 
     if (!paramErrors.isEmpty) {
-      completer.completeError(new core.ArgumentError(paramErrors.join(" / ")));
-      return completer.future;
+      throw new core.ArgumentError(paramErrors.join(" / "));
     }
 
     var response;
     response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
-    response
-      .then((data) => completer.complete(new ElectionsQueryResponse.fromJson(data)))
-      .catchError((e) { completer.completeError(e); return true; });
-    return completer.future;
+    return response
+      .then((data) => new ElectionsQueryResponse.fromJson(data));
   }
 
   /**
@@ -51,7 +47,6 @@ class ElectionsResource_ extends Resource {
    * [optParams] - Additional query parameters
    */
   async.Future<VoterInfoResponse> voterInfoQuery(VoterInfoRequest request, core.int electionId, {core.bool officialOnly, core.Map optParams}) {
-    var completer = new async.Completer();
     var url = "voterinfo/{electionId}/lookup";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
@@ -69,16 +64,13 @@ class ElectionsResource_ extends Resource {
     }
 
     if (!paramErrors.isEmpty) {
-      completer.completeError(new core.ArgumentError(paramErrors.join(" / ")));
-      return completer.future;
+      throw new core.ArgumentError(paramErrors.join(" / "));
     }
 
     var response;
     response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
-    response
-      .then((data) => completer.complete(new VoterInfoResponse.fromJson(data)))
-      .catchError((e) { completer.completeError(e); return true; });
-    return completer.future;
+    return response
+      .then((data) => new VoterInfoResponse.fromJson(data));
   }
 }
 
@@ -98,7 +90,6 @@ class RepresentativesResource_ extends Resource {
    * [optParams] - Additional query parameters
    */
   async.Future<RepresentativeInfoResponse> representativeInfoQuery(RepresentativeInfoRequest request, {core.bool includeOffices, core.Map optParams}) {
-    var completer = new async.Completer();
     var url = "representatives/lookup";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
@@ -114,16 +105,13 @@ class RepresentativesResource_ extends Resource {
     }
 
     if (!paramErrors.isEmpty) {
-      completer.completeError(new core.ArgumentError(paramErrors.join(" / ")));
-      return completer.future;
+      throw new core.ArgumentError(paramErrors.join(" / "));
     }
 
     var response;
     response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
-    response
-      .then((data) => completer.complete(new RepresentativeInfoResponse.fromJson(data)))
-      .catchError((e) { completer.completeError(e); return true; });
-    return completer.future;
+    return response
+      .then((data) => new RepresentativeInfoResponse.fromJson(data));
   }
 }
 
