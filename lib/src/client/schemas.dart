@@ -1,4 +1,4 @@
-part of civicinfo_us_v1_api_client;
+part of civicinfo_us_v1_api;
 
 /** Describes information about a regional election administrative area. */
 class AdministrationRegion {
@@ -33,10 +33,7 @@ class AdministrationRegion {
       name = json["name"];
     }
     if (json.containsKey("sources")) {
-      sources = [];
-      json["sources"].forEach((item) {
-        sources.add(new Source.fromJson(item));
-      });
+      sources = json["sources"].map((sourcesItem) => new Source.fromJson(sourcesItem)).toList();
     }
   }
 
@@ -57,10 +54,7 @@ class AdministrationRegion {
       output["name"] = name;
     }
     if (sources != null) {
-      output["sources"] = new core.List();
-      sources.forEach((item) {
-        output["sources"].add(item.toJson());
-      });
+      output["sources"] = sources.map((sourcesItem) => sourcesItem.toJson()).toList();
     }
 
     return output;
@@ -128,10 +122,7 @@ class AdministrativeBody {
       electionInfoUrl = json["electionInfoUrl"];
     }
     if (json.containsKey("electionOfficials")) {
-      electionOfficials = [];
-      json["electionOfficials"].forEach((item) {
-        electionOfficials.add(new ElectionOfficial.fromJson(item));
-      });
+      electionOfficials = json["electionOfficials"].map((electionOfficialsItem) => new ElectionOfficial.fromJson(electionOfficialsItem)).toList();
     }
     if (json.containsKey("electionRegistrationConfirmationUrl")) {
       electionRegistrationConfirmationUrl = json["electionRegistrationConfirmationUrl"];
@@ -152,10 +143,7 @@ class AdministrativeBody {
       physicalAddress = new SimpleAddressType.fromJson(json["physicalAddress"]);
     }
     if (json.containsKey("voter_services")) {
-      voter_services = [];
-      json["voter_services"].forEach((item) {
-        voter_services.add(item);
-      });
+      voter_services = json["voter_services"].toList();
     }
     if (json.containsKey("votingLocationFinderUrl")) {
       votingLocationFinderUrl = json["votingLocationFinderUrl"];
@@ -179,10 +167,7 @@ class AdministrativeBody {
       output["electionInfoUrl"] = electionInfoUrl;
     }
     if (electionOfficials != null) {
-      output["electionOfficials"] = new core.List();
-      electionOfficials.forEach((item) {
-        output["electionOfficials"].add(item.toJson());
-      });
+      output["electionOfficials"] = electionOfficials.map((electionOfficialsItem) => electionOfficialsItem.toJson()).toList();
     }
     if (electionRegistrationConfirmationUrl != null) {
       output["electionRegistrationConfirmationUrl"] = electionRegistrationConfirmationUrl;
@@ -203,10 +188,7 @@ class AdministrativeBody {
       output["physicalAddress"] = physicalAddress.toJson();
     }
     if (voter_services != null) {
-      output["voter_services"] = new core.List();
-      voter_services.forEach((item) {
-        output["voter_services"].add(item);
-      });
+      output["voter_services"] = voter_services.toList();
     }
     if (votingLocationFinderUrl != null) {
       output["votingLocationFinderUrl"] = votingLocationFinderUrl;
@@ -253,10 +235,7 @@ class Candidate {
       candidateUrl = json["candidateUrl"];
     }
     if (json.containsKey("channels")) {
-      channels = [];
-      json["channels"].forEach((item) {
-        channels.add(new Channel.fromJson(item));
-      });
+      channels = json["channels"].map((channelsItem) => new Channel.fromJson(channelsItem)).toList();
     }
     if (json.containsKey("email")) {
       email = json["email"];
@@ -265,11 +244,7 @@ class Candidate {
       name = json["name"];
     }
     if (json.containsKey("orderOnBallot")) {
-      if(json["orderOnBallot"] is core.String){
-        orderOnBallot = core.int.parse(json["orderOnBallot"]);
-      }else{
-        orderOnBallot = json["orderOnBallot"];
-      }
+      orderOnBallot = (json["orderOnBallot"] is core.String) ? core.int.parse(json["orderOnBallot"]) : json["orderOnBallot"];
     }
     if (json.containsKey("party")) {
       party = json["party"];
@@ -290,10 +265,7 @@ class Candidate {
       output["candidateUrl"] = candidateUrl;
     }
     if (channels != null) {
-      output["channels"] = new core.List();
-      channels.forEach((item) {
-        output["channels"].add(item.toJson());
-      });
+      output["channels"] = channels.map((channelsItem) => channelsItem.toJson()).toList();
     }
     if (email != null) {
       output["email"] = email;
@@ -396,10 +368,10 @@ class Contest {
   /** A brief description of the referendum. This field is only populated for contests of type 'Referendum'. */
   core.String referendumSubtitle;
 
-  /** The title of the referendum. (e.g. 'Proposition 42') This field is only populated for contests of type 'Referendum'. */
+  /** The title of the referendum (e.g. 'Proposition 42'). This field is only populated for contests of type 'Referendum'. */
   core.String referendumTitle;
 
-  /** A link the referendum. This field is only populated for contests of type 'Referendum'. */
+  /** A link to the referendum. This field is only populated for contests of type 'Referendum'. */
   core.String referendumUrl;
 
   /** A list of sources for this contest. If multiple sources are listed, the data has been aggregated from those sources. */
@@ -414,17 +386,10 @@ class Contest {
   /** Create new Contest from JSON data */
   Contest.fromJson(core.Map json) {
     if (json.containsKey("ballotPlacement")) {
-      if(json["ballotPlacement"] is core.String){
-        ballotPlacement = core.int.parse(json["ballotPlacement"]);
-      }else{
-        ballotPlacement = json["ballotPlacement"];
-      }
+      ballotPlacement = (json["ballotPlacement"] is core.String) ? core.int.parse(json["ballotPlacement"]) : json["ballotPlacement"];
     }
     if (json.containsKey("candidates")) {
-      candidates = [];
-      json["candidates"].forEach((item) {
-        candidates.add(new Candidate.fromJson(item));
-      });
+      candidates = json["candidates"].map((candidatesItem) => new Candidate.fromJson(candidatesItem)).toList();
     }
     if (json.containsKey("district")) {
       district = new ElectoralDistrict.fromJson(json["district"]);
@@ -439,18 +404,10 @@ class Contest {
       level = json["level"];
     }
     if (json.containsKey("numberElected")) {
-      if(json["numberElected"] is core.String){
-        numberElected = core.int.parse(json["numberElected"]);
-      }else{
-        numberElected = json["numberElected"];
-      }
+      numberElected = (json["numberElected"] is core.String) ? core.int.parse(json["numberElected"]) : json["numberElected"];
     }
     if (json.containsKey("numberVotingFor")) {
-      if(json["numberVotingFor"] is core.String){
-        numberVotingFor = core.int.parse(json["numberVotingFor"]);
-      }else{
-        numberVotingFor = json["numberVotingFor"];
-      }
+      numberVotingFor = (json["numberVotingFor"] is core.String) ? core.int.parse(json["numberVotingFor"]) : json["numberVotingFor"];
     }
     if (json.containsKey("office")) {
       office = json["office"];
@@ -468,10 +425,7 @@ class Contest {
       referendumUrl = json["referendumUrl"];
     }
     if (json.containsKey("sources")) {
-      sources = [];
-      json["sources"].forEach((item) {
-        sources.add(new Source.fromJson(item));
-      });
+      sources = json["sources"].map((sourcesItem) => new Source.fromJson(sourcesItem)).toList();
     }
     if (json.containsKey("special")) {
       special = json["special"];
@@ -489,10 +443,7 @@ class Contest {
       output["ballotPlacement"] = ballotPlacement;
     }
     if (candidates != null) {
-      output["candidates"] = new core.List();
-      candidates.forEach((item) {
-        output["candidates"].add(item.toJson());
-      });
+      output["candidates"] = candidates.map((candidatesItem) => candidatesItem.toJson()).toList();
     }
     if (district != null) {
       output["district"] = district.toJson();
@@ -528,10 +479,7 @@ class Contest {
       output["referendumUrl"] = referendumUrl;
     }
     if (sources != null) {
-      output["sources"] = new core.List();
-      sources.forEach((item) {
-        output["sources"].add(item.toJson());
-      });
+      output["sources"] = sources.map((sourcesItem) => sourcesItem.toJson()).toList();
     }
     if (special != null) {
       output["special"] = special;
@@ -566,11 +514,7 @@ class Election {
       electionDay = json["electionDay"];
     }
     if (json.containsKey("id")) {
-      if(json["id"] is core.String){
-        id = core.int.parse(json["id"]);
-      }else{
-        id = json["id"];
-      }
+      id = (json["id"] is core.String) ? core.int.parse(json["id"]) : json["id"];
     }
     if (json.containsKey("name")) {
       name = json["name"];
@@ -676,10 +620,7 @@ class ElectionsQueryResponse {
   /** Create new ElectionsQueryResponse from JSON data */
   ElectionsQueryResponse.fromJson(core.Map json) {
     if (json.containsKey("elections")) {
-      elections = [];
-      json["elections"].forEach((item) {
-        elections.add(new Election.fromJson(item));
-      });
+      elections = json["elections"].map((electionsItem) => new Election.fromJson(electionsItem)).toList();
     }
     if (json.containsKey("kind")) {
       kind = json["kind"];
@@ -691,10 +632,7 @@ class ElectionsQueryResponse {
     var output = new core.Map();
 
     if (elections != null) {
-      output["elections"] = new core.List();
-      elections.forEach((item) {
-        output["elections"].add(item.toJson());
-      });
+      output["elections"] = elections.map((electionsItem) => electionsItem.toJson()).toList();
     }
     if (kind != null) {
       output["kind"] = kind;
@@ -717,7 +655,7 @@ class ElectoralDistrict {
   /** The name of the district. */
   core.String name;
 
-  /** The geographic scope of this district. If unspecified the district's geography is not known. One of: statewide, congressional, stateUpper, stateLower, countywide, judicial, schoolBoard, cityWide, special */
+  /** The geographic scope of this district. If unspecified the district's geography is not known. One of: national, statewide, congressional, stateUpper, stateLower, countywide, judicial, schoolBoard, cityWide, township, countyCouncil, cityCouncil, ward, special */
   core.String scope;
 
   /** Create new ElectoralDistrict from JSON data */
@@ -751,267 +689,6 @@ class ElectoralDistrict {
   }
 
   /** Return String representation of ElectoralDistrict */
-  core.String toString() => JSON.stringify(this.toJson());
-
-}
-
-/** Describes a political geography. */
-class GeographicDivision {
-
-  /** Numerical value between 0 and 1 that expresses level of confidence that a given district is relevant to the request. */
-  core.num confidence;
-
-  /** The name of the division. */
-  core.String name;
-
-  /** The unique Open Civic Data identifier for this division. */
-  core.String ocdId;
-
-  /** List of offices elected from this division. */
-  core.List<Office> offices;
-
-  /** The type of this division. If unspecified the division's geography is not known. */
-  core.String type;
-
-  /** Create new GeographicDivision from JSON data */
-  GeographicDivision.fromJson(core.Map json) {
-    if (json.containsKey("confidence")) {
-      confidence = json["confidence"];
-    }
-    if (json.containsKey("name")) {
-      name = json["name"];
-    }
-    if (json.containsKey("ocdId")) {
-      ocdId = json["ocdId"];
-    }
-    if (json.containsKey("offices")) {
-      offices = [];
-      json["offices"].forEach((item) {
-        offices.add(new Office.fromJson(item));
-      });
-    }
-    if (json.containsKey("type")) {
-      type = json["type"];
-    }
-  }
-
-  /** Create JSON Object for GeographicDivision */
-  core.Map toJson() {
-    var output = new core.Map();
-
-    if (confidence != null) {
-      output["confidence"] = confidence;
-    }
-    if (name != null) {
-      output["name"] = name;
-    }
-    if (ocdId != null) {
-      output["ocdId"] = ocdId;
-    }
-    if (offices != null) {
-      output["offices"] = new core.List();
-      offices.forEach((item) {
-        output["offices"].add(item.toJson());
-      });
-    }
-    if (type != null) {
-      output["type"] = type;
-    }
-
-    return output;
-  }
-
-  /** Return String representation of GeographicDivision */
-  core.String toString() => JSON.stringify(this.toJson());
-
-}
-
-/** Information about an Office held by one or more Officials. */
-class Office {
-
-  /** The human-readable name of the office. */
-  core.String name;
-
-  /** A list of people who presently hold the office. */
-  core.List<Official> officials;
-
-  /** A list of sources for this contest. If multiple sources are listed, the data has been aggregated from those sources. */
-  core.List<Source> sources;
-
-  /** Create new Office from JSON data */
-  Office.fromJson(core.Map json) {
-    if (json.containsKey("name")) {
-      name = json["name"];
-    }
-    if (json.containsKey("officials")) {
-      officials = [];
-      json["officials"].forEach((item) {
-        officials.add(new Official.fromJson(item));
-      });
-    }
-    if (json.containsKey("sources")) {
-      sources = [];
-      json["sources"].forEach((item) {
-        sources.add(new Source.fromJson(item));
-      });
-    }
-  }
-
-  /** Create JSON Object for Office */
-  core.Map toJson() {
-    var output = new core.Map();
-
-    if (name != null) {
-      output["name"] = name;
-    }
-    if (officials != null) {
-      output["officials"] = new core.List();
-      officials.forEach((item) {
-        output["officials"].add(item.toJson());
-      });
-    }
-    if (sources != null) {
-      output["sources"] = new core.List();
-      sources.forEach((item) {
-        output["sources"].add(item.toJson());
-      });
-    }
-
-    return output;
-  }
-
-  /** Return String representation of Office */
-  core.String toString() => JSON.stringify(this.toJson());
-
-}
-
-/** Information about a official holding an elected office. */
-class Official {
-
-  /** Addresses at which to contact the official. */
-  core.List<SimpleAddressType> address;
-
-  /** A list of known (social) media channels for this official. */
-  core.List<Channel> channels;
-
-  /** The direct email addresses for the official. */
-  core.List<core.String> emails;
-
-  /** A unique identifier for this official. */
-  core.String id;
-
-  /** The official's name. */
-  core.String name;
-
-  /** The full name of the party the official belongs to. */
-  core.String party;
-
-  /** The official's public contact phone numbers. */
-  core.List<core.String> phones;
-
-  /** A URL for a photo of the official. */
-  core.String photoUrl;
-
-  /** The official's public website URLs. */
-  core.List<core.String> urls;
-
-  /** Create new Official from JSON data */
-  Official.fromJson(core.Map json) {
-    if (json.containsKey("address")) {
-      address = [];
-      json["address"].forEach((item) {
-        address.add(new SimpleAddressType.fromJson(item));
-      });
-    }
-    if (json.containsKey("channels")) {
-      channels = [];
-      json["channels"].forEach((item) {
-        channels.add(new Channel.fromJson(item));
-      });
-    }
-    if (json.containsKey("emails")) {
-      emails = [];
-      json["emails"].forEach((item) {
-        emails.add(item);
-      });
-    }
-    if (json.containsKey("id")) {
-      id = json["id"];
-    }
-    if (json.containsKey("name")) {
-      name = json["name"];
-    }
-    if (json.containsKey("party")) {
-      party = json["party"];
-    }
-    if (json.containsKey("phones")) {
-      phones = [];
-      json["phones"].forEach((item) {
-        phones.add(item);
-      });
-    }
-    if (json.containsKey("photoUrl")) {
-      photoUrl = json["photoUrl"];
-    }
-    if (json.containsKey("urls")) {
-      urls = [];
-      json["urls"].forEach((item) {
-        urls.add(item);
-      });
-    }
-  }
-
-  /** Create JSON Object for Official */
-  core.Map toJson() {
-    var output = new core.Map();
-
-    if (address != null) {
-      output["address"] = new core.List();
-      address.forEach((item) {
-        output["address"].add(item.toJson());
-      });
-    }
-    if (channels != null) {
-      output["channels"] = new core.List();
-      channels.forEach((item) {
-        output["channels"].add(item.toJson());
-      });
-    }
-    if (emails != null) {
-      output["emails"] = new core.List();
-      emails.forEach((item) {
-        output["emails"].add(item);
-      });
-    }
-    if (id != null) {
-      output["id"] = id;
-    }
-    if (name != null) {
-      output["name"] = name;
-    }
-    if (party != null) {
-      output["party"] = party;
-    }
-    if (phones != null) {
-      output["phones"] = new core.List();
-      phones.forEach((item) {
-        output["phones"].add(item);
-      });
-    }
-    if (photoUrl != null) {
-      output["photoUrl"] = photoUrl;
-    }
-    if (urls != null) {
-      output["urls"] = new core.List();
-      urls.forEach((item) {
-        output["urls"].add(item);
-      });
-    }
-
-    return output;
-  }
-
-  /** Return String representation of Official */
   core.String toString() => JSON.stringify(this.toJson());
 
 }
@@ -1067,10 +744,7 @@ class PollingLocation {
       pollingHours = json["pollingHours"];
     }
     if (json.containsKey("sources")) {
-      sources = [];
-      json["sources"].forEach((item) {
-        sources.add(new Source.fromJson(item));
-      });
+      sources = json["sources"].map((sourcesItem) => new Source.fromJson(sourcesItem)).toList();
     }
     if (json.containsKey("startDate")) {
       startDate = json["startDate"];
@@ -1103,10 +777,7 @@ class PollingLocation {
       output["pollingHours"] = pollingHours;
     }
     if (sources != null) {
-      output["sources"] = new core.List();
-      sources.forEach((item) {
-        output["sources"].add(item.toJson());
-      });
+      output["sources"] = sources.map((sourcesItem) => sourcesItem.toJson()).toList();
     }
     if (startDate != null) {
       output["startDate"] = startDate;
@@ -1119,125 +790,6 @@ class PollingLocation {
   }
 
   /** Return String representation of PollingLocation */
-  core.String toString() => JSON.stringify(this.toJson());
-
-}
-
-/** A request for political geography and representative information for an address. */
-class RepresentativeInfoRequest {
-  core.String address;
-
-  /** Create new RepresentativeInfoRequest from JSON data */
-  RepresentativeInfoRequest.fromJson(core.Map json) {
-    if (json.containsKey("address")) {
-      address = json["address"];
-    }
-  }
-
-  /** Create JSON Object for RepresentativeInfoRequest */
-  core.Map toJson() {
-    var output = new core.Map();
-
-    if (address != null) {
-      output["address"] = address;
-    }
-
-    return output;
-  }
-
-  /** Return String representation of RepresentativeInfoRequest */
-  core.String toString() => JSON.stringify(this.toJson());
-
-}
-
-/** The result of a representative info lookup query. */
-class RepresentativeInfoResponse {
-
-  /** Political geographic divisions that contain the requested address. */
-  core.List<GeographicDivision> divisions;
-
-  /** The kind, fixed to "civicinfo#representativeInfoResponse". */
-  core.String kind;
-
-  /** The normalized version of the requested address */
-  SimpleAddressType normalizedInput;
-
-  /** Elected offices referenced by the divisions listed above. Will only be present if "offices" was true in the request. */
-  core.List<Office> offices;
-
-  /** Officials holding the offices listed above. Will only be present if "offices" was true in the request. */
-  core.List<Official> officials;
-
-  /** The result of the request. One of: success, noStreetSegmentFound, addressUnparseable, noAddressParameter, multipleStreetSegmentsFound, electionOver, electionUnknown, internalLookupFailure */
-  core.String status;
-
-  /** Create new RepresentativeInfoResponse from JSON data */
-  RepresentativeInfoResponse.fromJson(core.Map json) {
-    if (json.containsKey("divisions")) {
-      divisions = [];
-      json["divisions"].forEach((item) {
-        divisions.add(new GeographicDivision.fromJson(item));
-      });
-    }
-    if (json.containsKey("kind")) {
-      kind = json["kind"];
-    }
-    if (json.containsKey("normalizedInput")) {
-      normalizedInput = new SimpleAddressType.fromJson(json["normalizedInput"]);
-    }
-    if (json.containsKey("offices")) {
-      offices = [];
-      json["offices"].forEach((item) {
-        offices.add(new Office.fromJson(item));
-      });
-    }
-    if (json.containsKey("officials")) {
-      officials = [];
-      json["officials"].forEach((item) {
-        officials.add(new Official.fromJson(item));
-      });
-    }
-    if (json.containsKey("status")) {
-      status = json["status"];
-    }
-  }
-
-  /** Create JSON Object for RepresentativeInfoResponse */
-  core.Map toJson() {
-    var output = new core.Map();
-
-    if (divisions != null) {
-      output["divisions"] = new core.List();
-      divisions.forEach((item) {
-        output["divisions"].add(item.toJson());
-      });
-    }
-    if (kind != null) {
-      output["kind"] = kind;
-    }
-    if (normalizedInput != null) {
-      output["normalizedInput"] = normalizedInput.toJson();
-    }
-    if (offices != null) {
-      output["offices"] = new core.List();
-      offices.forEach((item) {
-        output["offices"].add(item.toJson());
-      });
-    }
-    if (officials != null) {
-      output["officials"] = new core.List();
-      officials.forEach((item) {
-        output["officials"].add(item.toJson());
-      });
-    }
-    if (status != null) {
-      output["status"] = status;
-    }
-
-    return output;
-  }
-
-  /** Return String representation of RepresentativeInfoResponse */
   core.String toString() => JSON.stringify(this.toJson());
 
 }
@@ -1422,16 +974,10 @@ class VoterInfoResponse {
   /** Create new VoterInfoResponse from JSON data */
   VoterInfoResponse.fromJson(core.Map json) {
     if (json.containsKey("contests")) {
-      contests = [];
-      json["contests"].forEach((item) {
-        contests.add(new Contest.fromJson(item));
-      });
+      contests = json["contests"].map((contestsItem) => new Contest.fromJson(contestsItem)).toList();
     }
     if (json.containsKey("earlyVoteSites")) {
-      earlyVoteSites = [];
-      json["earlyVoteSites"].forEach((item) {
-        earlyVoteSites.add(new PollingLocation.fromJson(item));
-      });
+      earlyVoteSites = json["earlyVoteSites"].map((earlyVoteSitesItem) => new PollingLocation.fromJson(earlyVoteSitesItem)).toList();
     }
     if (json.containsKey("election")) {
       election = new Election.fromJson(json["election"]);
@@ -1443,16 +989,10 @@ class VoterInfoResponse {
       normalizedInput = new SimpleAddressType.fromJson(json["normalizedInput"]);
     }
     if (json.containsKey("pollingLocations")) {
-      pollingLocations = [];
-      json["pollingLocations"].forEach((item) {
-        pollingLocations.add(new PollingLocation.fromJson(item));
-      });
+      pollingLocations = json["pollingLocations"].map((pollingLocationsItem) => new PollingLocation.fromJson(pollingLocationsItem)).toList();
     }
     if (json.containsKey("state")) {
-      state = [];
-      json["state"].forEach((item) {
-        state.add(new AdministrationRegion.fromJson(item));
-      });
+      state = json["state"].map((stateItem) => new AdministrationRegion.fromJson(stateItem)).toList();
     }
     if (json.containsKey("status")) {
       status = json["status"];
@@ -1464,16 +1004,10 @@ class VoterInfoResponse {
     var output = new core.Map();
 
     if (contests != null) {
-      output["contests"] = new core.List();
-      contests.forEach((item) {
-        output["contests"].add(item.toJson());
-      });
+      output["contests"] = contests.map((contestsItem) => contestsItem.toJson()).toList();
     }
     if (earlyVoteSites != null) {
-      output["earlyVoteSites"] = new core.List();
-      earlyVoteSites.forEach((item) {
-        output["earlyVoteSites"].add(item.toJson());
-      });
+      output["earlyVoteSites"] = earlyVoteSites.map((earlyVoteSitesItem) => earlyVoteSitesItem.toJson()).toList();
     }
     if (election != null) {
       output["election"] = election.toJson();
@@ -1485,16 +1019,10 @@ class VoterInfoResponse {
       output["normalizedInput"] = normalizedInput.toJson();
     }
     if (pollingLocations != null) {
-      output["pollingLocations"] = new core.List();
-      pollingLocations.forEach((item) {
-        output["pollingLocations"].add(item.toJson());
-      });
+      output["pollingLocations"] = pollingLocations.map((pollingLocationsItem) => pollingLocationsItem.toJson()).toList();
     }
     if (state != null) {
-      output["state"] = new core.List();
-      state.forEach((item) {
-        output["state"].add(item.toJson());
-      });
+      output["state"] = state.map((stateItem) => stateItem.toJson()).toList();
     }
     if (status != null) {
       output["status"] = status;
@@ -1508,3 +1036,16 @@ class VoterInfoResponse {
 
 }
 
+core.Map _mapMap(core.Map source, [core.Object convert(core.Object source) = null]) {
+  assert(source != null);
+  var result = new dart_collection.LinkedHashMap();
+  source.forEach((core.String key, value) {
+    assert(key != null);
+    if(convert == null) {
+      result[key] = value;
+    } else {
+      result[key] = convert(value);
+    }
+  });
+  return result;
+}

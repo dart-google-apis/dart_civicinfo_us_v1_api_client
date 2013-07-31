@@ -1,9 +1,11 @@
-part of civicinfo_us_v1_api_client;
+part of civicinfo_us_v1_api;
 
-class ElectionsResource_ extends Resource {
+class ElectionsResource_ {
 
-  ElectionsResource_(Client client) : super(client) {
-  }
+  final Client _client;
+
+  ElectionsResource_(Client client) :
+      _client = client;
 
   /**
    * List of available elections to query.
@@ -71,47 +73,6 @@ class ElectionsResource_ extends Resource {
     response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
     return response
       .then((data) => new VoterInfoResponse.fromJson(data));
-  }
-}
-
-class RepresentativesResource_ extends Resource {
-
-  RepresentativesResource_(Client client) : super(client) {
-  }
-
-  /**
-   * Looks up political geography and (optionally) representative information based on an address.
-   *
-   * [request] - RepresentativeInfoRequest to send in this request
-   *
-   * [includeOffices] - Whether to return information about offices and officials. If false, only the top-level district information will be returned.
-   *   Default: true
-   *
-   * [optParams] - Additional query parameters
-   */
-  async.Future<RepresentativeInfoResponse> representativeInfoQuery(RepresentativeInfoRequest request, {core.bool includeOffices, core.Map optParams}) {
-    var url = "representatives/lookup";
-    var urlParams = new core.Map();
-    var queryParams = new core.Map();
-
-    var paramErrors = new core.List();
-    if (includeOffices != null) queryParams["includeOffices"] = includeOffices;
-    if (optParams != null) {
-      optParams.forEach((key, value) {
-        if (value != null && queryParams[key] == null) {
-          queryParams[key] = value;
-        }
-      });
-    }
-
-    if (!paramErrors.isEmpty) {
-      throw new core.ArgumentError(paramErrors.join(" / "));
-    }
-
-    var response;
-    response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
-    return response
-      .then((data) => new RepresentativeInfoResponse.fromJson(data));
   }
 }
 

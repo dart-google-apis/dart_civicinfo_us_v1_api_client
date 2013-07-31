@@ -1,14 +1,15 @@
-library civicinfo_us_v1_api_console;
+library civicinfo_us_v1_api.console;
 
-import "civicinfo_us_v1_api_client.dart";
-export "civicinfo_us_v1_api_client.dart";
-
-import "dart:core" as core;
-import "dart:io" as io;
-import "dart:async" as async;
-import "dart:json" as JSON;
-import "package:http/http.dart" as http;
 import "package:google_oauth2_client/google_oauth2_console.dart" as oauth2;
 
-part "src/console/console_client.dart";
-part "src/console/civicinfo.dart";
+import 'package:google_civicinfo_us_v1_api/src/cloud_api_console.dart';
+
+import "package:google_civicinfo_us_v1_api/civicinfo_us_v1_api_client.dart";
+
+/** An API for accessing civic information. */
+class Civicinfo extends Client with ConsoleClient {
+
+  final oauth2.OAuth2Console auth;
+
+  Civicinfo([oauth2.OAuth2Console this.auth]);
+}
