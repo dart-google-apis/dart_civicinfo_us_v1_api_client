@@ -41,7 +41,7 @@ class ElectionsResource_ {
    *
    * [request] - VoterInfoRequest to send in this request
    *
-   * [electionId] - The unique ID of the election to look up. A list of election IDs can be obtained at.https://www.googleapis.com/civicinfo/{version}/elections
+   * [electionId] - The unique ID of the election to look up. A list of election IDs can be obtained at https://www.googleapis.com/civicinfo/{version}/elections
    *
    * [officialOnly] - If set to true, only data from official state sources will be returned.
    *   Default: false

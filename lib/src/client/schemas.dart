@@ -61,7 +61,7 @@ class AdministrationRegion {
   }
 
   /** Return String representation of AdministrationRegion */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -198,7 +198,7 @@ class AdministrativeBody {
   }
 
   /** Return String representation of AdministrativeBody */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -290,7 +290,7 @@ class Candidate {
   }
 
   /** Return String representation of Candidate */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -328,7 +328,7 @@ class Channel {
   }
 
   /** Return String representation of Channel */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -492,7 +492,7 @@ class Contest {
   }
 
   /** Return String representation of Contest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -539,7 +539,7 @@ class Election {
   }
 
   /** Return String representation of Election */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -604,7 +604,7 @@ class ElectionOfficial {
   }
 
   /** Return String representation of ElectionOfficial */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -642,7 +642,7 @@ class ElectionsQueryResponse {
   }
 
   /** Return String representation of ElectionsQueryResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -689,7 +689,7 @@ class ElectoralDistrict {
   }
 
   /** Return String representation of ElectoralDistrict */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -790,7 +790,7 @@ class PollingLocation {
   }
 
   /** Return String representation of PollingLocation */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -873,7 +873,7 @@ class SimpleAddressType {
   }
 
   /** Return String representation of SimpleAddressType */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -911,7 +911,7 @@ class Source {
   }
 
   /** Return String representation of Source */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -940,7 +940,7 @@ class VoterInfoRequest {
   }
 
   /** Return String representation of VoterInfoRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1032,7 +1032,7 @@ class VoterInfoResponse {
   }
 
   /** Return String representation of VoterInfoResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
