@@ -8,7 +8,9 @@ abstract class Client extends ClientBase {
   // Resources
   //
 
+  DivisionsResource_ get divisions => new DivisionsResource_(this);
   ElectionsResource_ get elections => new ElectionsResource_(this);
+  RepresentativesResource_ get representatives => new RepresentativesResource_(this);
 
   //
   // Parameters

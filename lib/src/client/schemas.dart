@@ -496,6 +496,90 @@ class Contest {
 
 }
 
+/** The result of a division search query. */
+class DivisionSearchResponse {
+
+  /** Identifies what kind of resource this is. Value: the fixed string "civicinfo#divisionSearchResponse". */
+  core.String kind;
+
+  core.List<DivisionSearchResult> results;
+
+  /** The result of the request. One of: success, addressUnparseable, noAddressParameter, internalLookupFailure */
+  core.String status;
+
+  /** Create new DivisionSearchResponse from JSON data */
+  DivisionSearchResponse.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("results")) {
+      results = json["results"].map((resultsItem) => new DivisionSearchResult.fromJson(resultsItem)).toList();
+    }
+    if (json.containsKey("status")) {
+      status = json["status"];
+    }
+  }
+
+  /** Create JSON Object for DivisionSearchResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (results != null) {
+      output["results"] = results.map((resultsItem) => resultsItem.toJson()).toList();
+    }
+    if (status != null) {
+      output["status"] = status;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of DivisionSearchResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** Represents a political geographic division that matches the requested query. */
+class DivisionSearchResult {
+
+  /** The name of the division. */
+  core.String name;
+
+  /** The unique Open Civic Data identifier for this division. */
+  core.String ocdId;
+
+  /** Create new DivisionSearchResult from JSON data */
+  DivisionSearchResult.fromJson(core.Map json) {
+    if (json.containsKey("name")) {
+      name = json["name"];
+    }
+    if (json.containsKey("ocdId")) {
+      ocdId = json["ocdId"];
+    }
+  }
+
+  /** Create JSON Object for DivisionSearchResult */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (name != null) {
+      output["name"] = name;
+    }
+    if (ocdId != null) {
+      output["ocdId"] = ocdId;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of DivisionSearchResult */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
 /** Information about the election that was queried. */
 class Election {
 
@@ -614,7 +698,7 @@ class ElectionsQueryResponse {
   /** A list of available elections */
   core.List<Election> elections;
 
-  /** The kind, fixed to "civicinfo#electionsQueryResponse". */
+  /** Identifies what kind of resource this is. Value: the fixed string "civicinfo#electionsQueryResponse". */
   core.String kind;
 
   /** Create new ElectionsQueryResponse from JSON data */
@@ -689,6 +773,201 @@ class ElectoralDistrict {
   }
 
   /** Return String representation of ElectoralDistrict */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** Describes a political geography. */
+class GeographicDivision {
+
+  /** The name of the division. */
+  core.String name;
+
+  /** List of keys in the offices object, one for each office elected from this division. Will only be present if includeOffices was true (or absent) in the request. */
+  core.List<core.String> officeIds;
+
+  /** The geographic scope of the division. If unspecified, the division's geography is not known. One of: national, statewide, congressional, stateUpper, stateLower, countywide, judicial, schoolBoard, cityWide, township, countyCouncil, cityCouncil, ward, special */
+  core.String scope;
+
+  /** Create new GeographicDivision from JSON data */
+  GeographicDivision.fromJson(core.Map json) {
+    if (json.containsKey("name")) {
+      name = json["name"];
+    }
+    if (json.containsKey("officeIds")) {
+      officeIds = json["officeIds"].toList();
+    }
+    if (json.containsKey("scope")) {
+      scope = json["scope"];
+    }
+  }
+
+  /** Create JSON Object for GeographicDivision */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (name != null) {
+      output["name"] = name;
+    }
+    if (officeIds != null) {
+      output["officeIds"] = officeIds.toList();
+    }
+    if (scope != null) {
+      output["scope"] = scope;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of GeographicDivision */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** Information about an Office held by one or more Officials. */
+class Office {
+
+  /** The level of this elected office. One of: federal, state, county, city, other */
+  core.String level;
+
+  /** The human-readable name of the office. */
+  core.String name;
+
+  /** List of people who presently hold the office. */
+  core.List<core.String> officialIds;
+
+  /** A list of sources for this office. If multiple sources are listed, the data has been aggregated from those sources. */
+  core.List<Source> sources;
+
+  /** Create new Office from JSON data */
+  Office.fromJson(core.Map json) {
+    if (json.containsKey("level")) {
+      level = json["level"];
+    }
+    if (json.containsKey("name")) {
+      name = json["name"];
+    }
+    if (json.containsKey("officialIds")) {
+      officialIds = json["officialIds"].toList();
+    }
+    if (json.containsKey("sources")) {
+      sources = json["sources"].map((sourcesItem) => new Source.fromJson(sourcesItem)).toList();
+    }
+  }
+
+  /** Create JSON Object for Office */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (level != null) {
+      output["level"] = level;
+    }
+    if (name != null) {
+      output["name"] = name;
+    }
+    if (officialIds != null) {
+      output["officialIds"] = officialIds.toList();
+    }
+    if (sources != null) {
+      output["sources"] = sources.map((sourcesItem) => sourcesItem.toJson()).toList();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of Office */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** Information about a official holding an elected office. */
+class Official {
+
+  /** Addresses at which to contact the official. */
+  core.List<SimpleAddressType> address;
+
+  /** A list of known (social) media channels for this official. */
+  core.List<Channel> channels;
+
+  /** The direct email addresses for the official. */
+  core.List<core.String> emails;
+
+  /** The official's name. */
+  core.String name;
+
+  /** The full name of the party the official belongs to. */
+  core.String party;
+
+  /** The official's public contact phone numbers. */
+  core.List<core.String> phones;
+
+  /** A URL for a photo of the official. */
+  core.String photoUrl;
+
+  /** The official's public website URLs. */
+  core.List<core.String> urls;
+
+  /** Create new Official from JSON data */
+  Official.fromJson(core.Map json) {
+    if (json.containsKey("address")) {
+      address = json["address"].map((addressItem) => new SimpleAddressType.fromJson(addressItem)).toList();
+    }
+    if (json.containsKey("channels")) {
+      channels = json["channels"].map((channelsItem) => new Channel.fromJson(channelsItem)).toList();
+    }
+    if (json.containsKey("emails")) {
+      emails = json["emails"].toList();
+    }
+    if (json.containsKey("name")) {
+      name = json["name"];
+    }
+    if (json.containsKey("party")) {
+      party = json["party"];
+    }
+    if (json.containsKey("phones")) {
+      phones = json["phones"].toList();
+    }
+    if (json.containsKey("photoUrl")) {
+      photoUrl = json["photoUrl"];
+    }
+    if (json.containsKey("urls")) {
+      urls = json["urls"].toList();
+    }
+  }
+
+  /** Create JSON Object for Official */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (address != null) {
+      output["address"] = address.map((addressItem) => addressItem.toJson()).toList();
+    }
+    if (channels != null) {
+      output["channels"] = channels.map((channelsItem) => channelsItem.toJson()).toList();
+    }
+    if (emails != null) {
+      output["emails"] = emails.toList();
+    }
+    if (name != null) {
+      output["name"] = name;
+    }
+    if (party != null) {
+      output["party"] = party;
+    }
+    if (phones != null) {
+      output["phones"] = phones.toList();
+    }
+    if (photoUrl != null) {
+      output["photoUrl"] = photoUrl;
+    }
+    if (urls != null) {
+      output["urls"] = urls.toList();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of Official */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -790,6 +1069,109 @@ class PollingLocation {
   }
 
   /** Return String representation of PollingLocation */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** A request for political geography and representative information for an address. */
+class RepresentativeInfoRequest {
+
+  /** The address to look up. May only be specified if the field ocdId is not given in the URL. */
+  core.String address;
+
+  /** Create new RepresentativeInfoRequest from JSON data */
+  RepresentativeInfoRequest.fromJson(core.Map json) {
+    if (json.containsKey("address")) {
+      address = json["address"];
+    }
+  }
+
+  /** Create JSON Object for RepresentativeInfoRequest */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (address != null) {
+      output["address"] = address;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of RepresentativeInfoRequest */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** The result of a representative info lookup query. */
+class RepresentativeInfoResponse {
+
+  /** Political geographic divisions that contain the requested address. */
+  core.Map<core.String, GeographicDivision> divisions;
+
+  /** Identifies what kind of resource this is. Value: the fixed string "civicinfo#representativeInfoResponse". */
+  core.String kind;
+
+  /** The normalized version of the requested address */
+  SimpleAddressType normalizedInput;
+
+  /** Elected offices referenced by the divisions listed above. Will only be present if includeOffices was true in the request. */
+  core.Map<core.String, Office> offices;
+
+  /** Officials holding the offices listed above. Will only be present if includeOffices was true in the request. */
+  core.Map<core.String, Official> officials;
+
+  /** The result of the request. One of: success, noStreetSegmentFound, addressUnparseable, noAddressParameter, multipleStreetSegmentsFound, electionOver, electionUnknown, internalLookupFailure, RequestedBothAddressAndOcdId */
+  core.String status;
+
+  /** Create new RepresentativeInfoResponse from JSON data */
+  RepresentativeInfoResponse.fromJson(core.Map json) {
+    if (json.containsKey("divisions")) {
+      divisions = _mapMap(json["divisions"], (divisionsItem) => new GeographicDivision.fromJson(divisionsItem));
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("normalizedInput")) {
+      normalizedInput = new SimpleAddressType.fromJson(json["normalizedInput"]);
+    }
+    if (json.containsKey("offices")) {
+      offices = _mapMap(json["offices"], (officesItem) => new Office.fromJson(officesItem));
+    }
+    if (json.containsKey("officials")) {
+      officials = _mapMap(json["officials"], (officialsItem) => new Official.fromJson(officialsItem));
+    }
+    if (json.containsKey("status")) {
+      status = json["status"];
+    }
+  }
+
+  /** Create JSON Object for RepresentativeInfoResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (divisions != null) {
+      output["divisions"] = _mapMap(divisions, (divisionsItem) => divisionsItem.toJson());
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (normalizedInput != null) {
+      output["normalizedInput"] = normalizedInput.toJson();
+    }
+    if (offices != null) {
+      output["offices"] = _mapMap(offices, (officesItem) => officesItem.toJson());
+    }
+    if (officials != null) {
+      output["officials"] = _mapMap(officials, (officialsItem) => officialsItem.toJson());
+    }
+    if (status != null) {
+      output["status"] = status;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of RepresentativeInfoResponse */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -956,7 +1338,7 @@ class VoterInfoResponse {
   /** The election that was queried. */
   Election election;
 
-  /** The kind, fixed to "civicinfo#voterInfoResponse". */
+  /** Identifies what kind of resource this is. Value: the fixed string "civicinfo#voterInfoResponse". */
   core.String kind;
 
   /** The normalized version of the requested address */
