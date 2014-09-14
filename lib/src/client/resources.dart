@@ -124,7 +124,7 @@ class RepresentativesResource_ {
       _client = client;
 
   /**
-   * Looks up political geography and (optionally) representative information based on an address.
+   * Looks up political geography and representative information based on an address or Open Civic Data division identifier.
    *
    * [request] - RepresentativeInfoRequest to send in this request
    *
@@ -133,9 +133,12 @@ class RepresentativesResource_ {
    *
    * [ocdId] - The division to look up. May only be specified if the address field is not given in the request body.
    *
+   * [recursive] - When ocd_id is supplied, return all divisions which are hierarchically nested within the queried division. For example, if querying ocd-division/country:us/district:dc, this would also return all DC's wards and ANCs.
+   *   Default: false
+   *
    * [optParams] - Additional query parameters
    */
-  async.Future<RepresentativeInfoResponse> representativeInfoQuery(RepresentativeInfoRequest request, {core.bool includeOffices, core.String ocdId, core.Map optParams}) {
+  async.Future<RepresentativeInfoResponse> representativeInfoQuery(RepresentativeInfoRequest request, {core.bool includeOffices, core.String ocdId, core.bool recursive, core.Map optParams}) {
     var url = "representatives/lookup";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
@@ -143,6 +146,7 @@ class RepresentativesResource_ {
     var paramErrors = new core.List();
     if (includeOffices != null) queryParams["includeOffices"] = includeOffices;
     if (ocdId != null) queryParams["ocdId"] = ocdId;
+    if (recursive != null) queryParams["recursive"] = recursive;
     if (optParams != null) {
       optParams.forEach((key, value) {
         if (value != null && queryParams[key] == null) {

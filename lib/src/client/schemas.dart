@@ -545,6 +545,9 @@ class DivisionSearchResponse {
 /** Represents a political geographic division that matches the requested query. */
 class DivisionSearchResult {
 
+  /** Other Open Civic Data identifiers that refer to the same division -- for example, those that refer to other political divisions whose boundaries are defined to be coterminous with this one. For example, ocd-division/country:us/state:wy will include an alias of ocd-division/country:us/state:wy/cd:1, since Wyoming has only one Congressional district. */
+  core.List<core.String> aliases;
+
   /** The name of the division. */
   core.String name;
 
@@ -553,6 +556,9 @@ class DivisionSearchResult {
 
   /** Create new DivisionSearchResult from JSON data */
   DivisionSearchResult.fromJson(core.Map json) {
+    if (json.containsKey("aliases")) {
+      aliases = json["aliases"].toList();
+    }
     if (json.containsKey("name")) {
       name = json["name"];
     }
@@ -565,6 +571,9 @@ class DivisionSearchResult {
   core.Map toJson() {
     var output = new core.Map();
 
+    if (aliases != null) {
+      output["aliases"] = aliases.toList();
+    }
     if (name != null) {
       output["name"] = name;
     }
@@ -780,6 +789,9 @@ class ElectoralDistrict {
 /** Describes a political geography. */
 class GeographicDivision {
 
+  /** Any other valid OCD IDs that refer to the same division. For example, if this division's OCD ID is ocd-division/country:us/district:dc, this will contain ocd-division/country:us/state:dc. */
+  core.List<core.String> alsoKnownAs;
+
   /** The name of the division. */
   core.String name;
 
@@ -791,6 +803,9 @@ class GeographicDivision {
 
   /** Create new GeographicDivision from JSON data */
   GeographicDivision.fromJson(core.Map json) {
+    if (json.containsKey("alsoKnownAs")) {
+      alsoKnownAs = json["alsoKnownAs"].toList();
+    }
     if (json.containsKey("name")) {
       name = json["name"];
     }
@@ -806,6 +821,9 @@ class GeographicDivision {
   core.Map toJson() {
     var output = new core.Map();
 
+    if (alsoKnownAs != null) {
+      output["alsoKnownAs"] = alsoKnownAs.toList();
+    }
     if (name != null) {
       output["name"] = name;
     }
@@ -827,13 +845,16 @@ class GeographicDivision {
 /** Information about an Office held by one or more Officials. */
 class Office {
 
+  /** The OCD ID of the division with which this office is associated. */
+  core.String divisionId;
+
   /** The level of this elected office. One of: federal, state, county, city, other */
   core.String level;
 
   /** The human-readable name of the office. */
   core.String name;
 
-  /** List of people who presently hold the office. */
+  /** List of keys in the officials object of people who presently hold this office. */
   core.List<core.String> officialIds;
 
   /** A list of sources for this office. If multiple sources are listed, the data has been aggregated from those sources. */
@@ -841,6 +862,9 @@ class Office {
 
   /** Create new Office from JSON data */
   Office.fromJson(core.Map json) {
+    if (json.containsKey("divisionId")) {
+      divisionId = json["divisionId"];
+    }
     if (json.containsKey("level")) {
       level = json["level"];
     }
@@ -859,6 +883,9 @@ class Office {
   core.Map toJson() {
     var output = new core.Map();
 
+    if (divisionId != null) {
+      output["divisionId"] = divisionId;
+    }
     if (level != null) {
       output["level"] = level;
     }

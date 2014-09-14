@@ -6,6 +6,7 @@ import 'package:google_civicinfo_us_v1_api/src/browser_client.dart';
 import "package:google_civicinfo_us_v1_api/civicinfo_us_v1_api_client.dart";
 
 /** An API for accessing civic information. */
+@deprecated
 class Civicinfo extends Client with BrowserClient {
 
   final oauth.OAuth2 auth;
